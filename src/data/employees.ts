@@ -9,7 +9,7 @@ export interface Employee {
     branchId: number;
 }
 
-export const employees: Employee[] = [
+export const employee: Employee[] = [
     {
     id:1,
     name: "Alice Johnson",
