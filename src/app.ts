@@ -3,7 +3,7 @@ import express, {Application, Request, Response} from "express";
 import morgan from "morgan";
 
 import {HTTP_STATUS} from "./constants/httpConstants";
-
+import employeeRoutes from "./routes/employeesroutes";
 const app: Application = express();
 
 // alows app to read json
@@ -19,12 +19,17 @@ interface HealthCheckResponse {
     version: string;
 }
 
-app.get("/api/v1/health", (req: Request, res: Response) => {
+app.get("/health", (req: Request, res: Response) => {
     const healthData: HealthCheckResponse = {
         status: HTTP_STATUS.OK,
         uptime: process.uptime(),
         timestamp: new Date().toISOString(),
         version: "1.0.0",
     };
-})
+
+    res.status(HTTP_STATUS.OK).send("Server is healthy");
+});
+
+app.use("/api/v1/employees", employeeRoutes);
+
 export default app; 
