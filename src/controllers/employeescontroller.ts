@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction }  from "express";
-import { HTTP_STATUS} from "../../constants/httpConstants";
-import * as employeeService from "../../services/employeeservice";
-import { Employee } from "../../models/employee";
+import { HTTP_STATUS} from "../../src/constants/httpConstants";
+import * as employeeService from "../../src/services/employeeservice";
+import { Employee } from "../../src/models/employee";
 
 /**
  * Controller to create a new employee

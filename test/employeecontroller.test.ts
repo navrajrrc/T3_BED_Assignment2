@@ -1,6 +1,6 @@
 import { Request, Response , NextFunction } from "express";
 import { HTTP_STATUS } from "../src/constants/httpConstants";
-import * as employeeController from "../src/services/controllers/employeescontroller";
+import * as employeeController from "../src/controllers/employeescontroller";
 import * as employeeService from "../src/services/employeeservice";
 
 jest.mock("../src/services/employeeservice");
@@ -100,5 +100,120 @@ describe("Employee Controller", () => {
     });
 
     //get employee by id tests
-    
+    describe("getEmployeeById", () => {
+        it("should retrieve an employee by ID successfully", async () => {
+            mockReq.params = { id: "1" };
+            (employeeService.getEmployeeById as jest.Mock).mockResolvedValue({
+                id: 1,
+                name: "armaan"
+            });
+
+            await employeeController.getEmployeeById(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(employeeService.getEmployeeById).toHaveBeenCalledWith(1);
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Employee retrieved",
+                data: { id: 1, name: "armaan" }
+            });
+        });
+
+        it("should return 404 if employee not found", async () => {
+            mockReq.params = { id: "2" };
+            (employeeService.getEmployeeById as jest.Mock).mockResolvedValue(undefined);
+
+            await employeeController.getEmployeeById(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.NOT_FOUND);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Employee with ID 2 not found"
+            });
+        });
+    });
+
+    //update employee tests
+    describe("updateEmployee", () => {
+        it("should update an employee successfully", async () => {
+            mockReq.params = { id: "1" };
+            mockReq.body = { position: "Senior Developer" };
+            (employeeService.updateEmployee as jest.Mock).mockResolvedValue({
+                id: 1,
+                name: "armaan",
+                position: "Senior Developer"
+            });
+
+            await employeeController.updateEmployee(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(employeeService.updateEmployee).toHaveBeenCalledWith(1, mockReq.body);
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Employee updated",
+                data: { id: 1, name: "armaan", position: "Senior Developer" }
+            });
+        });
+
+        it("should return 404 if employee to update not found", async () => {
+            mockReq.params = { id: "2" };
+            mockReq.body = { position: "Senior Developer" };
+            (employeeService.updateEmployee as jest.Mock).mockResolvedValue(undefined);
+
+            await employeeController.updateEmployee(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.NOT_FOUND);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Employee with ID 2 not found"
+            });
+        });
+    });
+
+    //delete employee tests
+    describe("deleteEmployee", () => {
+        it("should delete an employee successfully", async () => {
+            mockReq.params = { id: "1" };
+            (employeeService.deleteEmployee as jest.Mock).mockResolvedValue(undefined);
+
+            await employeeController.deleteEmployee(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(employeeService.deleteEmployee).toHaveBeenCalledWith(1);
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Employee deleted"
+            });
+        });
+
+        it("should call next with error when delete fails", async () => {
+            const error = new Error("Failed");
+            mockReq.params = { id: "2" };
+            (employeeService.deleteEmployee as jest.Mock).mockRejectedValue(error);
+
+            await employeeController.deleteEmployee(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(mockNext).toHaveBeenCalledWith(error);
+        });
+    });
+
 });

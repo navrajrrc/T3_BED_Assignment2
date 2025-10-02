@@ -1,10 +1,10 @@
 import request from "supertest";
 import app from "../src/app";
-import * as employeeController from "../src/services/controllers/employeescontroller";
+import * as employeeController from "../src/controllers/employeescontroller";
 import { HTTP_STATUS } from "../src/constants/httpConstants";
 import { employee } from "src/data/employees";
 
-jest.mock("../src/services/controllers/employeescontroller", () => ({
+jest.mock("../src/controllers/employeescontroller", () => ({
     CreateEmployee: jest.fn((req,res) => 
     res.status(HTTP_STATUS.CREATED).send()),
 

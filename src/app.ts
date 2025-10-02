@@ -4,6 +4,7 @@ import morgan from "morgan";
 
 import {HTTP_STATUS} from "./constants/httpConstants";
 import employeeRoutes from "./routes/employeesroutes";
+import branchRoutes from "./routes/branchRoutes"
 const app: Application = express();
 
 // alows app to read json
@@ -31,5 +32,6 @@ app.get("/health", (req: Request, res: Response) => {
 });
 
 app.use("/api/v1/employees", employeeRoutes);
+app.use("/api/v1/branches", branchRoutes)
 
 export default app; 
