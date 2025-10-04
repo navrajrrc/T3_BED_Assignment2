@@ -1,4 +1,4 @@
-import Joi  from "joi";
+import Joi  from "joi"; 
 
 /**
  * Employee schema oragnized by request type
@@ -41,7 +41,3 @@ export const employeeSchemas: Record<string, RequestSchema> = {
         }),
     },
 };
-
-/**
- * Branch Validation Schemas
- */
