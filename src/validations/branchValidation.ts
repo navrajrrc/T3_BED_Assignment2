@@ -1,5 +1,5 @@
 import Joi from "joi";
-
+import { RequestSchema } from "src/middleware/validate";
 
 export const branchSchemas: Record<string, RequestSchema> = {
     //POST /api/v1/branches -create branch
