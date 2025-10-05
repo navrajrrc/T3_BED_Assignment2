@@ -1,7 +1,15 @@
+import { QuerySnapshot , DocumentData, DocumentSnapshot } from "node_modules/firebase-admin/lib/firestore";
 import { Employee } from "../data/employees";
 import { employee } from "../data/employees";
+import {
+    createDocument,
+    getDocuments,
+    getDocumentById,
+    updateDocument,
+    deleteDocument
+} from "../repositories/firestoreRepository";
 
-const employees: Employee[] = employee;
+const COLLECTION: string = "employees";
 
 /**
  * Create a new employee and add them to the directory
@@ -21,27 +29,35 @@ export const createEmployee = async (
         branchId: number;
     }
 ): Promise<Employee> => {
-    const newEmployee: Employee = {
-        id: Date.now(),
-        name: newEmployeeData.name,
-        position: newEmployeeData.position,
-        department: newEmployeeData.department,
-        email: newEmployeeData.email,
-        phone: newEmployeeData.phone,
-        branchId: newEmployeeData.branchId,
+    const dateNow = new Date();
+    const newEmployee: Partial<Employee> = {
+        ...newEmployeeData,
     };
 
-    employees.push(newEmployee);
+    const emplyeeId: string = await createDocument<Employee>(COLLECTION, newEmployee);
 
-    return {...newEmployee};
+    return {id: emplyeeId, ...newEmployee} as Employee;
 }; 
 
 /**
  * Gets all employees from the storage
- * @returns this will return a clone of all employees as an array
+ * @returns Array of all employees
  */
 export const getAllEmployees = async (): Promise<Employee[]> => {
-    return structuredClone(employees);
+    try {
+        const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
+        const employees: Employee[] = snapshot.docs.map((doc) => {
+            const data: DocumentData = doc.data();
+            return {
+                id: doc.id,
+                ...data,
+            } as Employee;
+        });
+
+        return employees;
+    } catch (error: unknown) {
+        throw error;
+    }
 };
 
 /**
@@ -49,9 +65,20 @@ export const getAllEmployees = async (): Promise<Employee[]> => {
  * @param id this is the unique id of the employee we want to find
  * @returns this will return the employee object if found, otherwise undefined
  */
-export const getEmployeeById = async (id: number): Promise<Employee | undefined> => {
-    const employee = employees.find((emp) => emp.id === id);
-    return employee ? structuredClone(employee) : undefined;
+export const getEmployeeById = async (id: string): Promise<Employee> => {
+    const doc: DocumentSnapshot | null = await getDocumentById(COLLECTION, id);
+
+    if (!doc) {
+        throw new Error(`Employee with ID ${id} not found`);
+    }
+
+    const data: DocumentData |undefined = doc.data();
+    const employee: Employee = {
+        id:doc.id,
+        ...data,
+    } as Employee;
+
+    return employee;
 };
 
 /**
@@ -60,16 +87,25 @@ export const getEmployeeById = async (id: number): Promise<Employee | undefined>
  * @returns the updated employee object if found, otherwise undefined
  */
 export const updateEmployee = async (
-    id: number,
-    updates: Pick<Employee, "name" | "position" | "department" | "email" | "phone" | "branchId" >
-): Promise<Employee | undefined> => {
-    const index = employees.findIndex((emp) => emp.id === id);
+    id: string,
+    updates: Partial<Pick<Employee, "name" | "position" | "department" | "email" | "phone" | "branchId" >>
+): Promise<Employee> => {
+    const employee: Employee = await getEmployeeById(id);
 
-    if (index === -1) return undefined;
+    const updateEmployee: Employee = {
+        ...employee,
+    };
 
-    employees[index] = { ...employees[index], ...updates, id};
+    if (updates.name !== undefined) updateEmployee.name = updates.name;
+    if (updates.position !== undefined) updateEmployee.position = updates.position;
+    if (updates.department !== undefined) updateEmployee.department = updates.department;
+    if (updates.email !== undefined) updateEmployee.email = updates.email;
+    if (updates.phone !== undefined) updateEmployee.phone = updates.phone;
+    if (updates.branchId !== undefined) updateEmployee.branchId = updates.branchId;
 
-    return structuredClone(employees[index]);
+    await updateDocument<Employee>(COLLECTION, id, updateEmployee);
+
+    return updateEmployee;
 };
 
 /**
@@ -77,12 +113,12 @@ export const updateEmployee = async (
  * @param id this is the id of the employee that we want to remove
  * @throws will throw an error if the employee with the given id does not exist
  */
-export const deleteEmployee = async (id: number): Promise<void> => {
-    const index = employees.findIndex((emp) => emp.id === id);
+export const deleteEmployee = async (id: string): Promise<void> => {
+    const employee: Employee = await getEmployeeById(id);
 
-    if (index === -1) {
+    if (!employee) {
         throw new Error(`Employee with ID ${id} not found`);
     }
 
-    employees.splice(index,1);
+    await deleteDocument(COLLECTION, id);
 };

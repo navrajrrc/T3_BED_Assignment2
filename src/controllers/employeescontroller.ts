@@ -69,15 +69,8 @@ export const getEmployeeById = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const id = Number(req.params.id);
+        const {id} = req.params;
         const employee = await employeeService.getEmployeeById(id);
-
-        if (!employee) {
-            res.status(HTTP_STATUS.NOT_FOUND).json({
-                message: `Employee with ID ${id} not found`
-            });
-            return;
-        }
         res
             .status(HTTP_STATUS.OK)
             .json(successResponse(employee, "Employee retrieved successfully"));
@@ -98,7 +91,7 @@ export const updateEmployee = async (
     next: NextFunction,
 ): Promise<void> => {
     try{
-        const id = Number(req.params.id);
+        const {id} = req.params;
         const{ name, position, department, email, phone, branchId} = req.body;
 
         const updateEmployee = await employeeService.updateEmployee(id, {
@@ -109,13 +102,6 @@ export const updateEmployee = async (
             phone,
             branchId,
         });
-
-        if (!updateEmployee) {
-            res.status(HTTP_STATUS.NOT_FOUND).json({
-                message: `Employee with ID ${id} not found`
-            });
-            return;
-        }
 
         res
             .status(HTTP_STATUS.OK)
@@ -137,7 +123,7 @@ export const deleteEmployee = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const id = Number(req.params.id);
+        const {id} = req.params;
         await employeeService.deleteEmployee(id);
 
         res

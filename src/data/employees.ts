@@ -1,6 +1,6 @@
 // Interface for the structure of an Employee object
 export interface Employee {
-    id:number;
+    id:string;
     name: string;
     position: string;
     department: string;
@@ -11,7 +11,7 @@ export interface Employee {
 
 export const employee: Employee[] = [
     {
-    id:1,
+    id:"1",
     name: "Alice Johnson",
     position: "Branch Managwer",
     department: "Management",
@@ -20,7 +20,7 @@ export const employee: Employee[] = [
     branchId: 1,
     },
     {
-    id: 2,
+    id: "2",
     name: "Amandeep Singh",
     position: "Customer Service Representative",
     department: "Customer Service",
@@ -29,7 +29,7 @@ export const employee: Employee[] = [
     branchId: 2
   },
   {
-    id: 3,
+    id: "3",
     name: "Maria Garcia",
     position: "Loan Officer",
     department: "Loans",
@@ -38,7 +38,7 @@ export const employee: Employee[] = [
     branchId: 3
   },
   {
-    id: 4,
+    id: "4",
     name: "James Wilson",
     position: "IT Support Specialist",
     department: "IT",
@@ -47,7 +47,7 @@ export const employee: Employee[] = [
     branchId: 1
   },
   {
-    id: 5,
+    id: "5",
     name: "Linda Martinez",
     position: "Financial Advisor",
     department: "Advisory",
@@ -56,7 +56,7 @@ export const employee: Employee[] = [
     branchId: 2
   },
   {
-    id: 6,
+    id: "6",
     name: "Michael Brown",
     position: "Teller",
     department: "Operations",
@@ -65,7 +65,7 @@ export const employee: Employee[] = [
     branchId: 3
   },
   {
-    id: 7,
+    id: "7",
     name: "Patricia Taylor",
     position: "Operations Manager",
     department: "Operations",
@@ -74,7 +74,7 @@ export const employee: Employee[] = [
     branchId: 3
   },
   {
-    id: 8,
+    id: "8",
     name: "Chen Wei",
     position: "Senior Loan Officer",
     department: "Loans",
@@ -83,7 +83,7 @@ export const employee: Employee[] = [
     branchId: 5
   },
   {
-    id: 9,
+    id: "9",
     name: "Charles Thomas",
     position: "Accountant",
     department: "Finance",
@@ -92,7 +92,7 @@ export const employee: Employee[] = [
     branchId: 5
   },
   {
-    id: 10,
+    id: "10",
     name: "Elizabeth Jackson",
     position: "Marketing Specialist",
     department: "Marketing",
@@ -101,7 +101,7 @@ export const employee: Employee[] = [
     branchId: 6
   },
   {
-    id: 11,
+    id: "11",
     name: "Christopher White",
     position: "IT Manager",
     department: "IT",
@@ -110,7 +110,7 @@ export const employee: Employee[] = [
     branchId: 1
   },
   {
-    id: 12,
+    id: "12",
     name: "Jennifer Harris",
     position: "Branch Manager",
     department: "Management",
@@ -119,7 +119,7 @@ export const employee: Employee[] = [
     branchId: 6
   },
   {
-    id: 13,
+    id: "13",
     name: "William Martin",
     position: "Customer Service Representative",
     department: "Customer Service",
@@ -128,7 +128,7 @@ export const employee: Employee[] = [
     branchId: 8
   },
   {
-    id: 14,
+    id: "14",
     name: "Jessica Lewis",
     position: "Loan Processor",
     department: "Loans",
@@ -137,7 +137,7 @@ export const employee: Employee[] = [
     branchId: 7
   },
   {
-    id: 15,
+    id: "15",
     name: "Thomas Walker",
     position: "Teller",
     department: "Operations",
@@ -146,7 +146,7 @@ export const employee: Employee[] = [
     branchId: 9
   },
   {
-    id: 16,
+    id: "16",
     name: "Karen Hall",
     position: "Financial Analyst",
     department: "Finance",
@@ -155,7 +155,7 @@ export const employee: Employee[] = [
     branchId: 6
   },
   {
-    id: 17,
+    id: "17",
     name: "Steven Allen",
     position: "Security Specialist",
     department: "IT",
@@ -164,7 +164,7 @@ export const employee: Employee[] = [
     branchId: 8
   },
   {
-    id: 18,
+    id: "18",
     name: "Donna Young",
     position: "HR Specialist",
     department: "Human Resources",
@@ -173,7 +173,7 @@ export const employee: Employee[] = [
     branchId: 7
   },
   {
-    id: 19,
+    id: "19",
     name: "Joseph Hernandez",
     position: "Branch Manager",
     department: "Management",
@@ -182,7 +182,7 @@ export const employee: Employee[] = [
     branchId: 10
   },
   {
-    id: 20,
+    id: "20",
     name: "Sarah King",
     position: "Customer Service Supervisor",
     department: "Customer Service",
@@ -191,7 +191,7 @@ export const employee: Employee[] = [
     branchId: 9
   },
   {
-    id: 21,
+    id: "21",
     name: "Emily Clark",
     position: "Loan Specialist",
     department: "Loans",
@@ -200,7 +200,7 @@ export const employee: Employee[] = [
     branchId: 5
   },
   {
-    id: 22,
+    id: "22",
     name: "David Turner",
     position: "Financial Consultant",
     department: "Advisory",
@@ -209,7 +209,7 @@ export const employee: Employee[] = [
     branchId: 2
   },
   {
-    id: 23,
+    id: "23",
     name: "Amara Patel",
     position: "IT Analyst",
     department: "IT",
@@ -218,7 +218,7 @@ export const employee: Employee[] = [
     branchId: 1
   },
   {
-    id: 24,
+    id: "24",
     name: "Daniel Scott",
     position: "Branch Assistant Manager",
     department: "Management",
@@ -227,7 +227,7 @@ export const employee: Employee[] = [
     branchId: 3
   },
   {
-    id: 25,
+    id: "25",
     name: "Samantha Wright",
     position: "Customer Service Representative",
     department: "Customer Service",
@@ -236,7 +236,7 @@ export const employee: Employee[] = [
     branchId: 8
   },
   {
-    id: 26,
+    id: "26",
     name: "Haruto Tanaka",
     position: "Marketing Manager",
     department: "Marketing",
@@ -245,7 +245,7 @@ export const employee: Employee[] = [
     branchId: 6
   },
   {
-    id: 27,
+    id: "27",
     name: "Laura Adams",
     position: "Teller",
     department: "Operations",
@@ -254,7 +254,7 @@ export const employee: Employee[] = [
     branchId: 7
   },
   {
-    id: 28,
+    id: "28",
     name: "Ryan Phillips",
     position: "Loan Officer",
     department: "Loans",
@@ -263,7 +263,7 @@ export const employee: Employee[] = [
     branchId: 3
   },
   {
-    id: 29,
+    id: "29",
     name: "Olivia Parker",
     position: "IT Support Specialist",
     department: "IT",
@@ -272,7 +272,7 @@ export const employee: Employee[] = [
     branchId: 1
   },
   {
-    id: 30,
+    id: "30",
     name: "Brandon Campbell",
     position: "Financial Advisor",
     department: "Advisory",
@@ -281,7 +281,7 @@ export const employee: Employee[] = [
     branchId: 2
   },
   {
-    id: 31,
+    id: "31",
     name: "Amber Roberts",
     position: "Customer Relations Specialist",
     department: "Customer Service",
@@ -290,7 +290,7 @@ export const employee: Employee[] = [
     branchId: 4
   },
   {
-    id: 32,
+    id: "32",
     name: "Wei Zhang",
     position: "Senior Financial Analyst",
     department: "Finance",
@@ -299,7 +299,7 @@ export const employee: Employee[] = [
     branchId: 5
   },
   {
-    id: 33,
+    id: "33",
     name: "John Black",
     position: "Branch Manager",
     department: "Management",
@@ -308,7 +308,7 @@ export const employee: Employee[] = [
     branchId: 6
   },
   {
-    id: 34,
+    id: "34",
     name: "Maya Singh",
     position: "Marketing Coordinator",
     department: "Marketing",
@@ -317,7 +317,7 @@ export const employee: Employee[] = [
     branchId: 8
   },
   {
-    id: 35,
+    id: "35",
     name: "Lila Spence",
     position: "Loan Coordinator",
     department: "Loans",
