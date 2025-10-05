@@ -40,4 +40,24 @@ export const employeeSchemas: Record<string, RequestSchema> = {
             branchId: Joi.number().optional(),
         }),
     },
+
+    //GET /api/v1/employees/:id - Get employee by id
+    get: {
+        params: Joi.object({
+            id: Joi.string().required().messages({
+                "any.required": "Employee id is required",
+                "string.empty": "Employee id cannot be empty",
+            }),
+        }),
+    },
+
+    //DELETE /api/v1/employee/:id - Delete employee
+    delete: {
+        params: Joi.object({
+            id: Joi.string().required().messages({
+                "any.required": "Employee id is required",
+                "string.empty": "Employee id cannot be empty",
+            }),
+        }),
+    },
 };

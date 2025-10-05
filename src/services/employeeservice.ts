@@ -1,7 +1,7 @@
-import { Employee } from "src/data/employees";
-import { employee } from "src/data/employees";
+import { Employee } from "../data/employees";
+import { employee } from "../data/employees";
 
-const employees: Employee[] = [];
+const employees: Employee[] = employee;
 
 /**
  * Create a new employee and add them to the directory
