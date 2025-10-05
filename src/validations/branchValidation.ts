@@ -34,4 +34,14 @@ export const branchSchemas: Record<string, RequestSchema> = {
             phone: Joi.string().optional(),
         }),
     },
+
+    // Delete /api/v1/branches/:id
+    delete: {
+        params: Joi.object({
+            id: Joi.string().required().messages({
+                "any.required": "Branch id is required",
+                "string.empty": "Branch id cannot be empty",
+            }),
+        }),
+    },
 };
