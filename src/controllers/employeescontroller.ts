@@ -2,6 +2,7 @@ import { Request, Response, NextFunction }  from "express";
 import { HTTP_STATUS} from "../../src/constants/httpConstants";
 import * as employeeService from "../../src/services/employeeservice";
 import { Employee } from "../../src/models/employee";
+import { successResponse } from "src/models/responseModels";
 
 /**
  * Controller to create a new employee
@@ -17,10 +18,10 @@ export const CreateEmployee = async (
     try {
         const employeeData = req.body;
         const newEmployee: Employee = await employeeService.createEmployee(employeeData);
-        res.status(HTTP_STATUS.CREATED).json({
-            message: "Employee created",
-            data: newEmployee
-        });
+        res.status(HTTP_STATUS.CREATED).json(
+            successResponse(newEmployee, "Employee created successfully")
+            
+        );
     } catch (error: unknown) {
         next(error);
     }
@@ -40,10 +41,9 @@ export const getAllEmployees = async (
 ): Promise<void> => {
     try {
         const employees: Employee[] = await employeeService.getAllEmployees();
-        res.status(HTTP_STATUS.OK).json({
-            message: "Employees retrieved successfully",
-            data: employees
-        });
+        res.status(HTTP_STATUS.OK).json(
+            successResponse(employees, "Employees retrieved successfully")
+        );
     } catch (error: unknown) {
         next(error);
     }
@@ -71,10 +71,9 @@ export const getEmployeeById = async (
             return;
         }
 
-        res.status(HTTP_STATUS.OK).json({
-            message: "Employee retrieved",
-            data: employee
-        });
+        res.status(HTTP_STATUS.OK).json(
+            successResponse(employee, "Employee retrieved successfully")
+        );
     } catch (error: unknown) {
         next(error);
     }
@@ -104,10 +103,9 @@ export const updateEmployee = async (
             return;
         }
 
-        res.status(HTTP_STATUS.OK).json({
-            message: "Employee updated",
-            data:updateEmployee
-        });
+        res.status(HTTP_STATUS.OK).json(
+            successResponse(updateEmployee, "Employee updated successfully")
+        );
     } catch (error: unknown) {
         next(error);
     }
@@ -128,9 +126,9 @@ export const deleteEmployee = async (
         const id = Number(req.params.id);
         await employeeService.deleteEmployee(id);
 
-        res.status(HTTP_STATUS.OK).json({
-            message: "Employee deleted"
-        });
+        res.status(HTTP_STATUS.OK).json(
+            successResponse(null, "Employee deleted successfully")
+        );
     } catch (error: unknown) {
         next(error);
     }
