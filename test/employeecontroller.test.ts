@@ -29,10 +29,10 @@ describe("Employee Controller", () => {
                 department: "IT",
                 email: "armaan@email.com",
                 phone: "1234567890",
-                branchId: 1
+                branchId: "1",
             };
             (employeeService.createEmployee as jest.Mock).mockResolvedValue({
-                id: 1,
+                id: "1",
                 ...mockReq.body
             });
 
@@ -45,12 +45,13 @@ describe("Employee Controller", () => {
             expect(employeeService.createEmployee).toHaveBeenCalledWith(mockReq.body);
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
             expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee created",
-                data: {id:1, ...mockReq.body}
+                status: "success",
+                message: "Employee created successfully",
+                data: {id:"1", ...mockReq.body}
             });
         });
 
-        it("should call next with erroe when it fails", async () => {
+        it("should call next with error when it fails", async () => {
             const error = new Error("Failed");
             (employeeService.createEmployee as jest.Mock).mockRejectedValue(error);
 
@@ -68,7 +69,7 @@ describe("Employee Controller", () => {
     describe("getAllEmployees", () => {
         it("should retrieve all employees successfully", async () => {
             (employeeService.getAllEmployees as jest.Mock).mockResolvedValue([
-                { id: 1, name: "armaan"}
+                { id: "1", name: "armaan"}
             ]);
 
             await employeeController.getAllEmployees(
@@ -80,8 +81,9 @@ describe("Employee Controller", () => {
             expect(employeeService.getAllEmployees).toHaveBeenCalled();
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenCalledWith({
+                status: "success",
                 message: "Employees retrieved successfully",
-                data: [{ id: 1, name: "armaan"}]
+                data: [{ id: "1", name: "armaan"}]
             });
         });
 
@@ -104,7 +106,7 @@ describe("Employee Controller", () => {
         it("should retrieve an employee by ID successfully", async () => {
             mockReq.params = { id: "1" };
             (employeeService.getEmployeeById as jest.Mock).mockResolvedValue({
-                id: 1,
+                id: "1",
                 name: "armaan"
             });
 
@@ -114,11 +116,12 @@ describe("Employee Controller", () => {
                 mockNext
             );
 
-            expect(employeeService.getEmployeeById).toHaveBeenCalledWith(1);
+            expect(employeeService.getEmployeeById).toHaveBeenCalledWith("1");
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee retrieved",
-                data: { id: 1, name: "armaan" }
+                status: "success",
+                message: "Employee retrieved successfully",
+                data: { id: "1", name: "armaan" }
             });
         });
 
@@ -134,7 +137,7 @@ describe("Employee Controller", () => {
 
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.NOT_FOUND);
             expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee with ID 2 not found"
+                message: "Employee with id 2 not found"
             });
         });
     });
@@ -145,7 +148,7 @@ describe("Employee Controller", () => {
             mockReq.params = { id: "1" };
             mockReq.body = { position: "Senior Developer" };
             (employeeService.updateEmployee as jest.Mock).mockResolvedValue({
-                id: 1,
+                id: "1",
                 name: "armaan",
                 position: "Senior Developer"
             });
@@ -156,11 +159,12 @@ describe("Employee Controller", () => {
                 mockNext
             );
 
-            expect(employeeService.updateEmployee).toHaveBeenCalledWith(1, mockReq.body);
+            expect(employeeService.updateEmployee).toHaveBeenCalledWith("1", mockReq.body);
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee updated",
-                data: { id: 1, name: "armaan", position: "Senior Developer" }
+                status: "success",
+                message: "Employee updated successfully",
+                data: { id: "1", name: "armaan", position: "Senior Developer" }
             });
         });
 
@@ -194,10 +198,12 @@ describe("Employee Controller", () => {
                 mockNext
             );
 
-            expect(employeeService.deleteEmployee).toHaveBeenCalledWith(1);
+            expect(employeeService.deleteEmployee).toHaveBeenCalledWith("1");
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee deleted"
+                status: "success",
+                message: "Employee deleted successfully",
+                data: null
             });
         });
 

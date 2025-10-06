@@ -2,7 +2,7 @@ import { Request, Response, NextFunction }  from "express";
 import { HTTP_STATUS} from "../../src/constants/httpConstants";
 import * as employeeService from "../../src/services/employeeservice";
 import { Employee } from "../../src/models/employee";
-import { successResponse } from "src/models/responseModels";
+import { successResponse } from "../models/responseModels";
 
 /**
  * Controller to create a new employee
@@ -71,6 +71,13 @@ export const getEmployeeById = async (
     try {
         const {id} = req.params;
         const employee = await employeeService.getEmployeeById(id);
+
+        if (!employee) {
+            res
+                .status(HTTP_STATUS.NOT_FOUND)
+                .json({message: `Employee with id ${id} not found`});
+            return;
+        }
         res
             .status(HTTP_STATUS.OK)
             .json(successResponse(employee, "Employee retrieved successfully"));
@@ -102,6 +109,12 @@ export const updateEmployee = async (
             phone,
             branchId,
         });
+
+        if (!updateEmployee) {
+            res
+                .status(HTTP_STATUS.NOT_FOUND)
+                .json({message: `Employee with ID ${id} not found`})
+        }
 
         res
             .status(HTTP_STATUS.OK)

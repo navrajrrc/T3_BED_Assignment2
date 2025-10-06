@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { HTTP_STATUS } from "../src/constants/httpConstants";
 import * as branchController from "../src/controllers/branchController";
 import * as branchServices from "../src/services/branchServices";
-import { Branches } from "../src/models/branchModel";
+import { Branches } from "src/models/branchModel";
+import { mock } from "node:test";
 
 jest.mock("../src/services/branchServices");
 
@@ -26,7 +27,7 @@ describe("branch Controller", () => {
         it("it should handle sucessful operation", async () => {
             const mockBranches: Branches[] = [
                 { 
-                id: 1, 
+                id: "1", 
                 name: "winnipeg",
                 address: "111 abbotsford",
                 phone: "123-456-7890",
@@ -42,7 +43,8 @@ describe("branch Controller", () => {
 
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employees retrieved sucessfully",
+                message: "Branches retrieved successfully",
+                status: "success",
                 data: mockBranches,
             });
         });
@@ -58,7 +60,7 @@ describe("branch Controller", () => {
             };
 
             const mockBranch: Branches = {
-                id: 2,
+                id: "2",
                 ...mockBody,
             };
 
@@ -74,13 +76,14 @@ describe("branch Controller", () => {
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
             expect(mockRes.json).toHaveBeenCalledWith({
                 message: "Branch created successfully",
+                status: "success",
                 data: mockBranch,
             });
         });
 
         it("should return 400 when name is missing", async () => {
             mockReq.body = {
-                id: 1, 
+                id: "1", 
                 address: "111 abbotsford",
                 phone: "123-456-7890",
             };
@@ -107,7 +110,7 @@ describe("branch Controller", () => {
             };
 
             const mockBranch: Branches = {
-                id: 111,
+                id: "111",
                 ...Body,
             };
 
@@ -122,6 +125,7 @@ describe("branch Controller", () => {
 
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenCalledWith({
+                status:"success",
                 message: "Branch updated successfully",
                 data: mockBranch,
             });
@@ -160,7 +164,9 @@ describe("branch Controller", () => {
 
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenCalledWith({
-            message: "branch deleted successfully",
+            data: null,
+            message: "Branch deleted successfully",
+            status: "success",
         });
     });
 });
