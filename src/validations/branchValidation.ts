@@ -1,6 +1,30 @@
 import Joi from "joi";
 import { RequestSchema } from "src/middleware/validate";
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Branch:
+ *       type: object
+ *       required:
+ *         - name
+ *         - address
+ *         - phone
+ *       properties:
+ *         id:
+ *           type: string
+ *           example: br_001
+ *         name:
+ *           type: string
+ *           example: Downtown Branch
+ *         address:
+ *           type: string
+ *           example: "123 Main St, Los Angeles, CA"
+ *         phone:
+ *           type: string
+ *           example: "+1-234-567-8901"
+ */
 export const branchSchemas: Record<string, RequestSchema> = {
     //POST /api/v1/branches -create branch
     create: {
