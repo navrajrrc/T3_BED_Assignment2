@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import helmet from "helmet";
+import cors from "cors";
 // Importing morgan
 import express, {Application, Request, Response} from "express";
 import morgan from "morgan";
@@ -9,11 +10,15 @@ import { getHelmetConfig } from "../config/helmetConfig";
 import {HTTP_STATUS} from "./constants/httpConstants";
 import employeeRoutes from "./routes/employeesroutes";
 import branchRoutes from "./routes/branchRoutes"
+import { getCorsConfig } from "config/corsConfig";
 const app: Application = express();
 
 // alows app to read json
 app.use(express.json());
+app.use(helmet());
 app.use(helmet(getHelmetConfig()));
+app.use(cors());
+app.use(cors(getCorsConfig()));
 // Use morgan for HTTP request logging
 app.use(morgan("combined"));
 
