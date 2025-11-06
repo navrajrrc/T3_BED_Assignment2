@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "generate-docs": "ts-node scripts/generate-openapi.ts && npx @redocly/cli build-docs openapi.json --output docs/index.html",
     "start": "ts-node src/server.ts",
     "build": "tsc",
     "test": "jest"
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/navrajrrc/T3_BED_Assignment2#readme",
   "devDependencies": {
+    "@redocly/cli": "^2.11.0",
     "@types/cors": "^2.8.19",
     "@types/node": "^24.5.1",
     "@types/swagger-jsdoc": "^6.0.4",
