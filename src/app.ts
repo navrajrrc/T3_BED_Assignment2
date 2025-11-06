@@ -6,7 +6,7 @@ import cors from "cors";
 import express, {Application, Request, Response} from "express";
 import morgan from "morgan";
 import { getHelmetConfig } from "../config/helmetConfig";
-
+import setupSwagger from "../config/swagger";
 import {HTTP_STATUS} from "./constants/httpConstants";
 import employeeRoutes from "./routes/employeesroutes";
 import branchRoutes from "./routes/branchRoutes"
@@ -43,5 +43,6 @@ app.get("/health", (req: Request, res: Response) => {
 
 app.use("/api/v1/employees", employeeRoutes);
 app.use("/api/v1/branches", branchRoutes)
+
 
 export default app; 
