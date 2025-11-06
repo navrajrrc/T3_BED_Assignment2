@@ -1,3 +1,4 @@
 node_modules/
 dist/
 validationanddatabase-firebase-adminsdk-fbsvc-805c4c37f0.json
+.env
