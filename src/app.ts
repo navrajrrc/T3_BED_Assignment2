@@ -10,7 +10,7 @@ import { getHelmetConfig } from "../config/helmetConfig";
 import {HTTP_STATUS} from "./constants/httpConstants";
 import employeeRoutes from "./routes/employeesroutes";
 import branchRoutes from "./routes/branchRoutes"
-import { getCorsConfig } from "config/corsConfig";
+import { getCorsConfig } from "../config/corsConfig";
 const app: Application = express();
 
 // alows app to read json
