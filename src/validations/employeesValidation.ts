@@ -3,6 +3,36 @@ import { RequestSchema } from "src/middleware/validate";
 /**
  * Employee schema oragnized by request type
  */
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Employee:
+ *       type: object
+ *       required:
+ *         - name
+ *         - position
+ *         - email
+ *         - branchId
+ *       properties:
+ *         id:
+ *           type: string
+ *           example: emp_12345
+ *         name:
+ *           type: string
+ *           example: John Doe
+ *         position:
+ *           type: string
+ *           example: Manager
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: john.doe@example.com
+ *         branchId:
+ *           type: number
+ *           example: 103
+ */
 export const employeeSchemas: Record<string, RequestSchema> = {
     // POST /api/v1/employees - Create new employee
     create: {
